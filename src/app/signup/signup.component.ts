@@ -202,7 +202,7 @@ export class SignupComponent implements OnInit {
 
   findGeneralChat() {
     return this.allChats.filter(
-      (chat) => chat.chatName == 'general'
+      (chat) => chat.chatName == 'General'
     )[0] as Chat;
   }
 }
