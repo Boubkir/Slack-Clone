@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Chat } from 'src/models/chat.class';
 import { UsersService } from '../services/users.service';
 import { JsonMessage } from 'src/models/message.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-add-chat',
@@ -23,7 +24,8 @@ export class DialogAddChatComponent {
     public dialogRef: MatDialogRef<DialogAddChatComponent>,
     private firestore: AngularFirestore,
     private usersService: UsersService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,9 @@ export class DialogAddChatComponent {
       .collection('chats')
       .add(this.chat.toJSON())
       .then((result: any) => {
+        const chatId = result.id; 
         this.dialogRef.close();
+        this.router.navigate(['/client', chatId]);
       });
   }
 
